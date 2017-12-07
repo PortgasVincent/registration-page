@@ -57,11 +57,15 @@ it("test the form", ()=>{
   jest.runAllTimers();
   expect(form.state().data.psw).toBe("aaaaaaaa");
   expect(form.state().permittedpsw).not.toBe(true);
+  expect(form.state().confirmedpsw).not.toBe(true);
   //check confirm psw
   cpswinput.simulate("change", {target:{value:"Bbbbbb"}});
   jest.runAllTimers();
   expect(form.state().data.confirmpsw).toBe("Bbbbbb");
   expect(form.state().confirmedpsw).not.toBe(true);
+  pswinput.simulate("change", {target:{value:"Bbbbbb"}});
+  jest.runAllTimers();
+  expect(form.state().confirmedpsw).toBe(true);
   //check phone
   phoneinput.simulate("change", {target:{value:"123456"}});
   jest.runAllTimers();
