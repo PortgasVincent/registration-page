@@ -1,0 +1,5 @@
+.inputCheck{margin:20px;}
+.inputLabel{margin-left:50px;display:inline-block;width:180px;}
+.inputText{margin:0 20px;width:200px;}
+.active{color:green;}
+.inactive{color:red;}

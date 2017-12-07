@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {RegistrationForm} from './component/RegisterForm';
-import './index.css';
+import {Registrationform} from './component/Registrationform';
+
 ReactDOM.render(
-  <RegistrationForm />,
+  <Registrationform />,
   document.getElementById("root")
 );
 

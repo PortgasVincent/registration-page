@@ -1,25 +1,25 @@
 import React from 'react';
 import {Checkinput} from './Checkinput';
-import {UserInfo} from './UserInfo';
+import {Userinfo} from './Userinfo';
+import '../css/Registrationform.css';
 
-class RegistrationForm extends React.Component{
-	timer;
+class Registrationform extends React.Component{
 	constructor(props){
 		super();
+		this.timer = null;
+		this.data = {
+			name:"",
+			psw:"",
+			confirmpsw:"",
+			phone:"",
+		};
 		this.state={
-			data:{
-				name:"",
-				psw:"",
-				confirmpsw:"",
-				phone:"",
-			},	
 			permittedname:false,
 			permittedpsw:false,
 			confirmedpsw:false,
 			permittedphone:false,
 			submitted:false,
 		}
-		// this.timer = "";
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.checkName = this.checkName.bind(this);
 		this.checkPsw = this.checkPsw.bind(this);
@@ -31,21 +31,12 @@ class RegistrationForm extends React.Component{
 		clearTimeout(this.timer);
 		this.timer = setTimeout((namestr) => {
 			const name = this.delHtmlTag( namestr );
-			if(name !== ""){
-				this.setState((prestate)=>{
-					prestate.data.name = name;
-					prestate.permittedname = true;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}else{
-				this.setState((prestate)=>{
-					prestate.data.name = name;
-					prestate.permittedname = false;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}
+			this.data.name = name;
+			this.setState((prestate)=>{
+				prestate.permittedname = name !== "";
+				prestate.submitted = false;
+				return prestate;
+			})
 		} ,1000 ,namestr);
 		
 	}
@@ -56,30 +47,15 @@ class RegistrationForm extends React.Component{
 			const psw = this.delHtmlTag( pswstr );
 			const regUpper = /[A-Z]/;
 			const reglower = /[a-z]/;
-			if(regUpper.test(psw) && reglower.test(psw) && psw.length >= 8){
-				this.setState((prestate)=>{
-					prestate.data.psw = psw;
-					prestate.permittedpsw = true;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}else{
-				this.setState((prestate)=>{
-					prestate.data.psw = psw;
-					prestate.permittedpsw = false;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}
-			if(psw === this.state.data.confirmpsw){
-				this.setState({
-					confirmedpsw:true,
-				})
-			}else{
-				this.setState({
-					confirmedpsw:false,
-				})
-			}
+			this.data.psw = psw;
+			this.setState((prestate)=>{
+				prestate.permittedpsw = regUpper.test(psw) && reglower.test(psw) && psw.length >= 8;
+				prestate.submitted = false;
+				return prestate;
+			})
+			this.setState({
+				confirmedpsw : psw === this.data.confirmpsw,
+			})
 		} ,1000 ,pswstr);
 	}
 	confirmPsw(e){
@@ -87,20 +63,14 @@ class RegistrationForm extends React.Component{
 		clearTimeout(this.timer);
 		this.timer = setTimeout((pswstr)=>{
 			const psw = this.delHtmlTag( pswstr);
+			this.data.confirmpsw = psw;
 			this.setState((prestate)=>{
-					prestate.data.confirmpsw = psw;
-					prestate.submitted = false;
-					return prestate;
-				})
-			if(psw === this.state.data.psw){
-				this.setState({
-					confirmedpsw: true,
-				})
-			}else{
-				this.setState({
-					confirmedpsw:false,
-				})
-			}
+				prestate.submitted = false;
+				return prestate;
+			})
+			this.setState({
+				confirmedpsw: psw === this.data.psw,
+			})
 		} ,1000 ,pswstr);
 	}
 	checkPhone(e){
@@ -108,23 +78,12 @@ class RegistrationForm extends React.Component{
 		clearTimeout(this.timer);
 		this.timer = setTimeout((phonestr)=>{
 			const phone = this.delHtmlTag( phonestr );
-			if(phone.match(/^1(3|4|5|7|8)\d{9}$/) || phone.match(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/)){
-				this.setState((prestate)=>{
-					prestate.data.phone = phone;
-					prestate.permittedphone = true;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}else{
-				this.setState((prestate)=>{
-					prestate.data.phone = phone;
-					prestate.permittedphone = false;
-					prestate.submitted = false;
-					return prestate;
-				})
-			}
-			//console.log(this.state.phone);
-			//console.log(this.state.permittedphone);
+			this.data.phone = phone;
+			this.setState((prestate)=>{
+				prestate.permittedphone = phone.match(/^1(3|4|5|7|8)\d{9}$/) || phone.match(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/);
+				prestate.submitted = false;
+				return prestate;
+			})
 		} ,1000 ,phonestr);
 	}
 
@@ -132,11 +91,6 @@ class RegistrationForm extends React.Component{
 		this.setState({
 			submitted: true,
 		})
-		const dataJson = {
-			name:this.state.data.name, 
-			psw:this.state.data.psw, 
-			phone:this.state.data.phone,
-		};
 		e.preventDefault();
 	}
 
@@ -150,15 +104,13 @@ class RegistrationForm extends React.Component{
 		return(
 			<form onSubmit={this.handleSubmit} className={"regForm"}>
 				<Checkinput type={"text"}     title={"User name:"}        checkformat={this.checkName}  isValid={this.state.permittedname}  format={"Must not be null"}  />
-				<Checkinput type={"password"} title={"Password"}          checkformat={this.checkPsw}   isValid={this.state.permittedpsw}   format={"must be at least 8 characters, contain upper and lower case letters"}  />
+				<Checkinput type={"password"} title={"Password:"}          checkformat={this.checkPsw}   isValid={this.state.permittedpsw}   format={"must be at least 8 characters, contain upper and lower case letters"}  />
 				<Checkinput type={"password"} title={"Confirm Password:"} checkformat={this.confirmPsw} isValid={this.state.confirmedpsw}     format={"must match above"} />
 				<Checkinput type={"text"}     title={"Phone Number:"}     checkformat={this.checkPhone} isValid={this.state.permittedphone} format={"ensure the number is valid for a Chinese mobile or fixed line phone number"}   />
 				<input type="submit" value="Submit" disabled={!(this.state.permittedname && this.state.permittedpsw && this.state.confirmedpsw && this.state.permittedphone)} className={"submitBtn"} />
-				{this.state.submitted?
-					<UserInfo name={this.state.data.name} psw={this.state.data.psw} phone={this.state.data.phone} /> : ""
-				}
+				{this.state.submitted && <Userinfo name={this.data.name} psw={this.data.psw} phone={this.data.phone} />}
 			</form>
 		);
 	}
 }
-export {RegistrationForm};
+export {Registrationform};
