@@ -9,7 +9,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.useFakeTimers();
 
 it("form", ()=>{
-  const form = mount(<RegistrationForm />);
+  const form = mount(<Registrationform />);
   //check init state
   expect(form.state().permittedname).toBe(false);
   expect(form.state().permittedpsw).toBe(false);
@@ -18,7 +18,7 @@ it("form", ()=>{
   expect(form.state().submitted).toBe(false);
   //get input
   const nameinput = form.find({title : "User name:"}).find("input");
-  const pswinput = form.find({title : "Password"}).find("input");
+  const pswinput = form.find({title : "Password:"}).find("input");
   const cpswinput = form.find({title : "Confirm Password:"}).find("input");
   const phoneinput = form.find({title : "Phone Number:"}).find("input");
   const submitbtn = form.find(".submitBtn");
@@ -31,27 +31,29 @@ it("form", ()=>{
   //run inner of timer   simulate can run multiple events at the same time    
   jest.runAllTimers();
   //check value of input 
-  expect(form.state().data.name).toBe("");
+  console.log(form.instance().data.name)
+  expect(form.instance().data.name).toBe("");
+
   //check value of input whether is permitted
   expect(form.state().permittedname).toBe(false);
   // check psw
   pswinput.simulate("change", {target:{value:"Aaaaaa"}});
   jest.runAllTimers();
-  expect(form.state().data.psw).toBe("Aaaaaa");
+  expect(form.instance().data.psw).toBe("Aaaaaa");
   expect(form.state().permittedpsw).not.toBe(true);
   pswinput.simulate("change", {target:{value:"aaaaaaaa"}});
   jest.runAllTimers();
-  expect(form.state().data.psw).toBe("aaaaaaaa");
+  expect(form.instance().data.psw).toBe("aaaaaaaa");
   expect(form.state().permittedpsw).not.toBe(true);
   //check confirm psw
   cpswinput.simulate("change", {target:{value:"Bbbbbb"}});
   jest.runAllTimers();
-  expect(form.state().data.confirmpsw).toBe("Bbbbbb");
+  expect(form.instance().data.confirmpsw).toBe("Bbbbbb");
   expect(form.state().confirmedpsw).not.toBe(true);
   //check phone
   phoneinput.simulate("change", {target:{value:"123456"}});
   jest.runAllTimers();
-  expect(form.state().data.phone).toBe("123456");
+  expect(form.instance().data.phone).toBe("123456");
   expect(form.state().permittedphone).not.toBe(true);
   expect(form.html()).toMatchSnapshot();
 
@@ -61,23 +63,23 @@ it("form", ()=>{
   //run inner of timer
   jest.runAllTimers();
   //check value of input 
-  expect(form.state().data.name).toBe("aaa");
+  expect(form.instance().data.name).toBe("aaa");
   //check value of input whether is permitted
   expect(form.state().permittedname).toBe(true);
   // check psw
   pswinput.simulate("change", {target:{value:"Aaaaaaaa"}});
   jest.runAllTimers();
-  expect(form.state().data.psw).toBe("Aaaaaaaa");
+  expect(form.instance().data.psw).toBe("Aaaaaaaa");
   expect(form.state().permittedpsw).toBe(true);
   //check confirm psw
   cpswinput.simulate("change", {target:{value:"Aaaaaaaa"}});
   jest.runAllTimers();
-  expect(form.state().data.confirmpsw).toBe("Aaaaaaaa");
+  expect(form.instance().data.confirmpsw).toBe("Aaaaaaaa");
   expect(form.state().confirmedpsw).toBe(true);
   //check phone
   phoneinput.simulate("change", {target:{value:"82408888"}});
   jest.runAllTimers();
-  expect(form.state().data.phone).toBe("82408888");
+  expect(form.instance().data.phone).toBe("82408888");
   expect(form.state().permittedphone).toBe(true);
   //submit
   submitbtn.simulate("submit");

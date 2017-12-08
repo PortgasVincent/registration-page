@@ -1,7 +1,6 @@
 import React from 'react';
 import {Checkinput} from './Checkinput';
 import {Userinfo} from './Userinfo';
-import '../css/Registrationform.css';
 
 class Registrationform extends React.Component{
 	constructor(props){
@@ -80,7 +79,7 @@ class Registrationform extends React.Component{
 			const phone = this.delHtmlTag( phonestr );
 			this.data.phone = phone;
 			this.setState((prestate)=>{
-				prestate.permittedphone = phone.match(/^1(3|4|5|7|8)\d{9}$/) || phone.match(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/);
+				prestate.permittedphone = (/^1(3|4|5|7|8)\d{9}$/).test(phone) || (/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/).test(phone);
 				prestate.submitted = false;
 				return prestate;
 			})

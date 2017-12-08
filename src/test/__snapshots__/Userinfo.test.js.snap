@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Userinfo 1`] = `"<div><h3>User name:bbb</h3><h3>Password:Bbbbbbbb</h3><h3>Phone:82408888</h3></div>"`;
