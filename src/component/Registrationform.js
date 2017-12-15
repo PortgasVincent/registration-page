@@ -50,10 +50,8 @@ class Registrationform extends React.Component{
       this.setState((prestate)=>{
         prestate.permittedpsw = regUpper.test(psw) && reglower.test(psw) && psw.length >= 8;
         prestate.submitted = false;
+        prestate.confirmedpsw = psw === this.data.confirmpsw;
         return prestate;
-      })
-      this.setState({
-        confirmedpsw : psw === this.data.confirmpsw,
       })
     } ,1000 ,pswstr);
   }
@@ -65,10 +63,8 @@ class Registrationform extends React.Component{
       this.data.confirmpsw = psw;
       this.setState((prestate)=>{
         prestate.submitted = false;
+        prestate.confirmedpsw = psw === this.data.psw;
         return prestate;
-      })
-      this.setState({
-        confirmedpsw: psw === this.data.psw,
       })
     } ,1000 ,pswstr);
   }
