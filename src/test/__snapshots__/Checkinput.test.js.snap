@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Checkinput 1`] = `"<div class=\\"inputCheck\\"><label class=\\"inputLabel\\">test</label><input type=\\"text\\" class=\\"inputText\\"><span class=\\"inactive\\">format for test</span></div>"`;
+exports[`CheckInput 1`] = `"<div class=\\"inputCheck\\"><label class=\\"inputLabel\\">test</label><input type=\\"text\\" class=\\"inputText\\"><span class=\\"inactive\\">format for test</span></div>"`;

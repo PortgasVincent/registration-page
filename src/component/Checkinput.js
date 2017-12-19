@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Checkinput(props){
+function CheckInput(props){
   return(
     <div className={"inputCheck"}>
       <label className={"inputLabel"}>{props.title}</label>
@@ -9,4 +9,4 @@ function Checkinput(props){
     </div>
   )
 }
-export {Checkinput};
+export {CheckInput};

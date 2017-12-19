@@ -3,13 +3,13 @@ import renderer from 'react-test-renderer';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {mount,shallow} from 'enzyme';
-import {Registrationform} from '../component/Registrationform';
+import {RegistrationForm} from '../component/RegistrationForm';
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.useFakeTimers();
 
 it("form", ()=>{
-  const form = mount(<Registrationform />);
+  const form = mount(<RegistrationForm />);
   //check init state
   expect(form.state().permittedname).toBe(false);
   expect(form.state().permittedpsw).toBe(false);

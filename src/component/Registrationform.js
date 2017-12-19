@@ -1,8 +1,8 @@
 import React from 'react';
-import {Checkinput} from './Checkinput';
-import {Userinfo} from './Userinfo';
+import {CheckInput} from './CheckInput';
+import {UserInfo} from './UserInfo';
 
-class Registrationform extends React.Component{
+class RegistrationForm extends React.Component{
   constructor(props){
     super();
     this.timer = null;
@@ -98,14 +98,14 @@ class Registrationform extends React.Component{
   render(){
     return(
       <form onSubmit={this.handleSubmit} className={"regForm"}>
-        <Checkinput type={"text"}     title={"User name:"}        checkformat={this.checkName}  isValid={this.state.permittedname}  format={"Must not be null"}  />
-        <Checkinput type={"password"} title={"Password:"}          checkformat={this.checkPsw}   isValid={this.state.permittedpsw}   format={"must be at least 8 characters, contain upper and lower case letters"}  />
-        <Checkinput type={"password"} title={"Confirm Password:"} checkformat={this.confirmPsw} isValid={this.state.confirmedpsw}     format={"must match above"} />
-        <Checkinput type={"text"}     title={"Phone Number:"}     checkformat={this.checkPhone} isValid={this.state.permittedphone} format={"ensure the number is valid for a Chinese mobile or fixed line phone number"}   />
+        <CheckInput type={"text"}     title={"User name:"}        checkformat={this.checkName}  isValid={this.state.permittedname}  format={"Must not be null"}  />
+        <CheckInput type={"password"} title={"Password:"}          checkformat={this.checkPsw}   isValid={this.state.permittedpsw}   format={"must be at least 8 characters, contain upper and lower case letters"}  />
+        <CheckInput type={"password"} title={"Confirm Password:"} checkformat={this.confirmPsw} isValid={this.state.confirmedpsw}     format={"must match above"} />
+        <CheckInput type={"text"}     title={"Phone Number:"}     checkformat={this.checkPhone} isValid={this.state.permittedphone} format={"ensure the number is valid for a Chinese mobile or fixed line phone number"}   />
         <input type="submit" value="Submit" disabled={!(this.state.permittedname && this.state.permittedpsw && this.state.confirmedpsw && this.state.permittedphone)} className={"submitBtn"} />
-        {this.state.submitted && <Userinfo name={this.data.name} psw={this.data.psw} phone={this.data.phone} />}
+        {this.state.submitted && <UserInfo name={this.data.name} psw={this.data.psw} phone={this.data.phone} />}
       </form>
     );
   }
 }
-export {Registrationform};
+export {RegistrationForm};

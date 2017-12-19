@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Registrationform} from './component/Registrationform';
+import {RegistrationForm} from './component/RegistrationForm';
 import './index.css';
 
 ReactDOM.render(
-  <Registrationform />,
+  <RegistrationForm />,
   document.getElementById("root")
 );
 
